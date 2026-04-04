@@ -278,17 +278,16 @@
   }
 
   /* ─── EXPERIENCE — TIMELINE ─── */
-  .exp-list { display: flex; flex-direction: column; gap: 0; }
-
-  .exp-item {
-    display: grid;
-    grid-template-columns: 200px 1fr;
+  .exp-list {
+    display: flex;
+    flex-direction: column;
     gap: 0;
+    width: 100%;
     position: relative;
   }
 
-  /* vertical line running through all items */
-  .exp-item::after {
+  /* single continuous vertical line behind all items */
+  .exp-list::before {
     content: '';
     position: absolute;
     left: 199px;
@@ -298,11 +297,20 @@
     z-index: 0;
   }
 
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    width: 100%;
+    min-width: 0;
+    position: relative;
+  }
+
   .exp-timeline-left {
     padding: 32px 32px 32px 0;
     text-align: right;
     position: relative;
     z-index: 1;
+    min-width: 0;
   }
 
   /* dot on the timeline */
@@ -361,6 +369,8 @@
     border-bottom: 1px solid var(--border);
     position: relative;
     z-index: 1;
+    min-width: 0;
+    overflow: hidden;
   }
 
   .exp-item:last-child .exp-timeline-right { border-bottom: none; }
@@ -388,6 +398,7 @@
     font-size: 0.88rem;
     font-weight: 300;
     line-height: 1.65;
+    word-break: break-word;
   }
 
   .exp-bullets li::before {
@@ -405,27 +416,32 @@
 
   /* ─── MOBILE EXPERIENCE ─── */
   @media (max-width: 768px) {
+    .exp-list::before { display: none; }
+
     .exp-item {
       grid-template-columns: 1fr;
       padding-left: 20px;
       border-left: 2px solid var(--border);
       margin-bottom: 32px;
+      width: auto;
     }
-    .exp-item::after { display: none; }
+
+    .exp-item:last-child { margin-bottom: 0; }
+
     .exp-timeline-left {
       text-align: left;
       padding: 0 0 12px 0;
-      position: relative;
     }
+
     .exp-timeline-left::after {
       left: -25px; right: auto; top: 4px;
-      width: 8px; height: 8px;
     }
+
     .exp-timeline-right {
       padding: 0;
       border-bottom: none;
+      overflow: visible;
     }
-    .exp-item:last-child { margin-bottom: 0; }
   }
 
   /* ─── PROJECTS ─── */
@@ -1115,7 +1131,7 @@
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience">
+<section id="experience" style="overflow:hidden;">
   <div class="sec-header reveal">
     <span class="sec-number">02 /</span>
     <h2 class="sec-title">Experience</h2>
