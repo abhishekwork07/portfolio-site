@@ -912,91 +912,85 @@
     .exp-right { padding: 20px; }
     .exp-role { font-size: 1.1rem; } */
     /* EXPERIENCE MOBILE FIX */
- /* EXPERIENCE — PREMIUM MOBILE TIMELINE */
+/* EXPERIENCE — CLEAN MOBILE REDESIGN */
 @media (max-width: 768px) {
 
       .exp-list {
-        position: relative;
-        padding-left: 18px;
         gap: 20px;
-      }
-    
-      .exp-list::before {
-        content: '';
-        position: absolute;
-        left: 6px;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: var(--border);
       }
     
       .exp-item {
         display: block;
-        position: relative;
-        border-radius: 10px;
-        overflow: visible;
-        padding-left: 0; /* FIX */
-      }
-    
-      .exp-item::before {
-        content: '';
-        position: absolute;
-        left: -2px; /* FIX */
-        top: 24px;
-        width: 10px;
-        height: 10px;
-        background: var(--cyan);
-        border-radius: 50%;
-        z-index: 2;
-      }
-    
-      .exp-left {
-        border: none;
-        padding: 0 0 8px 0;
-      }
-    
-      .exp-right {
+        border-radius: 12px;
         padding: 16px;
         background: var(--surface);
         border: 1px solid var(--border);
-        border-radius: 10px;
-        overflow-wrap: break-word; /* FIX */
-        word-break: break-word;   /* FIX */
       }
     
+      /* Remove left/right separation */
+      .exp-left {
+        border: none;
+        padding: 0;
+        margin-bottom: 8px;
+      }
+    
+      .exp-right {
+        padding: 0;
+      }
+    
+      /* ROLE → most important */
       .exp-role {
-        font-size: 1.05rem;
-        margin-bottom: 10px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 6px;
       }
     
-      .exp-period {
-        font-size: 0.68rem;
-        opacity: 0.8;
+      /* Company + time in one line */
+      .exp-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 0.8rem;
+        color: var(--text-muted);
       }
     
       .exp-company {
-        font-size: 0.95rem;
-        margin-bottom: 4px;
+        font-weight: 600;
+        color: var(--text);
+      }
+    
+      .exp-period {
+        font-size: 0.75rem;
+        opacity: 0.8;
       }
     
       .exp-badge {
-        margin-top: 6px;
+        font-size: 0.6rem;
+        padding: 2px 8px;
       }
     
+      /* Bullets */
       .exp-bullets {
-        gap: 10px;
-        margin-top: 10px;
+        gap: 8px;
+        margin-top: 8px;
       }
     
       .exp-bullets li {
-        font-size: 0.88rem;
+        font-size: 0.9rem;
         line-height: 1.5;
       }
     }
 
     .exp-bullets li::before {
       margin-top: 6px;
+    }
+
+    .exp-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px; /* row-gap column-gap */
     }
 
     /* Projects */
@@ -1169,9 +1163,11 @@
     <div class="exp-item reveal">
       <div class="exp-left">
         <div>
-          <div class="exp-period">July 2023 – Present</div>
-          <div class="exp-company">Cognam Technologies</div>
-          <div class="exp-badge">Full-time · Remote</div>
+          <div class="exp-meta">
+          <span class="exp-company">Cognam Technologies</span>
+          <span class="exp-period">July 2023 – Present</span>
+          <span class="exp-badge">Full-time · Remote</span>
+        </div>
         </div>
       </div>
       <div class="exp-right">
@@ -1189,9 +1185,11 @@
     <div class="exp-item reveal">
       <div class="exp-left">
         <div>
-          <div class="exp-period">Jan 2023 – June 2023</div>
-          <div class="exp-company">Cognam Technologies</div>
-          <div class="exp-badge intern">Intern · Remote</div>
+          <div class="exp-meta">
+          <span class="exp-company">Cognam Technologies</span>
+          <span class="exp-period">Jan 2023 – June 202</span>
+          <span class="exp-badge">Intern · Remote</span>
+        </div>
         </div>
       </div>
       <div class="exp-right">
