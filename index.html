@@ -277,65 +277,78 @@
     background: linear-gradient(90deg, var(--border), transparent);
   }
 
-  /* ─── EXPERIENCE ─── */
-  #experience { background: transparent; }
-
-  .exp-list { display: flex; flex-direction: column; gap: 2px; }
+  /* ─── EXPERIENCE — TIMELINE ─── */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
 
   .exp-item {
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 200px 1fr;
     gap: 0;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    transition: border-color 0.3s, background 0.3s;
     position: relative;
-    overflow: hidden;
   }
 
-  .exp-item::before {
+  /* vertical line running through all items */
+  .exp-item::after {
     content: '';
-    position: absolute; top: 0; left: 0;
-    width: 3px; height: 0;
-    background: var(--cyan);
-    transition: height 0.4s ease;
+    position: absolute;
+    left: 199px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+    z-index: 0;
   }
 
-  .exp-item:hover { border-color: rgba(0,229,204,0.3); background: var(--bg3); }
-  .exp-item:hover::before { height: 100%; }
+  .exp-timeline-left {
+    padding: 32px 32px 32px 0;
+    text-align: right;
+    position: relative;
+    z-index: 1;
+  }
 
-  .exp-left {
-    padding: 32px 28px;
-    border-right: 1px solid var(--border);
-    display: flex; flex-direction: column; justify-content: space-between;
+  /* dot on the timeline */
+  .exp-timeline-left::after {
+    content: '';
+    position: absolute;
+    right: -5px; top: 38px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    z-index: 2;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .exp-item:hover .exp-timeline-left::after {
+    border-color: var(--cyan);
+    background: var(--cyan);
   }
 
   .exp-period {
     font-family: var(--mono);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: var(--cyan);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-bottom: 8px;
+    line-height: 1.4;
+    margin-bottom: 6px;
   }
 
   .exp-company {
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    color: var(--text);
-    margin-bottom: 6px;
+    color: var(--text-muted);
   }
 
   .exp-badge {
     display: inline-block;
-    padding: 3px 10px;
+    padding: 2px 8px;
     background: var(--cyan-dim);
     color: var(--cyan);
     font-family: var(--mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-top: 12px;
+    margin-top: 8px;
   }
 
   .exp-badge.intern {
@@ -343,43 +356,77 @@
     color: var(--amber);
   }
 
-  .exp-right {
-    padding: 32px 36px;
+  .exp-timeline-right {
+    padding: 28px 0 40px 40px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
   }
+
+  .exp-item:last-child .exp-timeline-right { border-bottom: none; }
 
   .exp-role {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    margin-bottom: 20px;
     letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    color: var(--text);
   }
 
-  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 
   .exp-bullets li {
-    display: flex; align-items: flex-start; gap: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
     color: var(--text-muted);
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     font-weight: 300;
+    line-height: 1.65;
   }
 
   .exp-bullets li::before {
     content: '▸';
     color: var(--cyan);
-    font-size: 0.75rem;
-    margin-top: 4px;
+    font-size: 0.7rem;
+    margin-top: 5px;
     flex-shrink: 0;
   }
 
-  .exp-bullets li {
-  align-items: flex-start;
+  .exp-bullets li strong {
+    color: var(--text);
+    font-weight: 500;
   }
 
-  .exp-bullets li::before {
-  margin-top: 6px;
+  /* ─── MOBILE EXPERIENCE ─── */
+  @media (max-width: 768px) {
+    .exp-item {
+      grid-template-columns: 1fr;
+      padding-left: 20px;
+      border-left: 2px solid var(--border);
+      margin-bottom: 32px;
+    }
+    .exp-item::after { display: none; }
+    .exp-timeline-left {
+      text-align: left;
+      padding: 0 0 12px 0;
+      position: relative;
+    }
+    .exp-timeline-left::after {
+      left: -25px; right: auto; top: 4px;
+      width: 8px; height: 8px;
+    }
+    .exp-timeline-right {
+      padding: 0;
+      border-bottom: none;
+    }
+    .exp-item:last-child { margin-bottom: 0; }
   }
-
-  .exp-bullets li strong { color: var(--text); font-weight: 500; }
 
   /* ─── PROJECTS ─── */
   .projects-grid {
@@ -907,91 +954,7 @@
     .sec-line { display: none; }
 
     /* Experience */
-    /* .exp-item { grid-template-columns: 1fr; }
-    .exp-left { border-right: none; border-bottom: 1px solid var(--border); padding: 20px; }
-    .exp-right { padding: 20px; }
-    .exp-role { font-size: 1.1rem; } */
-    /* EXPERIENCE MOBILE FIX */
-/* EXPERIENCE — CLEAN MOBILE REDESIGN */
-@media (max-width: 768px) {
-
-      .exp-list {
-        gap: 20px;
-      }
-    
-      .exp-item {
-        display: block;
-        border-radius: 12px;
-        padding: 16px;
-        background: var(--surface);
-        border: 1px solid var(--border);
-      }
-    
-      /* Remove left/right separation */
-      .exp-left {
-        border: none;
-        padding: 0;
-        margin-bottom: 8px;
-      }
-    
-      .exp-right {
-        padding: 0;
-      }
-    
-      /* ROLE → most important */
-      .exp-role {
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin-bottom: 6px;
-      }
-    
-      /* Company + time in one line */
-      .exp-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        align-items: center;
-        margin-bottom: 10px;
-        font-size: 0.8rem;
-        color: var(--text-muted);
-      }
-    
-      .exp-company {
-        font-weight: 600;
-        color: var(--text);
-      }
-    
-      .exp-period {
-        font-size: 0.75rem;
-        opacity: 0.8;
-      }
-    
-      .exp-badge {
-        font-size: 0.6rem;
-        padding: 2px 8px;
-      }
-    
-      /* Bullets */
-      .exp-bullets {
-        gap: 8px;
-        margin-top: 8px;
-      }
-    
-      .exp-bullets li {
-        font-size: 0.9rem;
-        line-height: 1.5;
-      }
-    }
-
-    .exp-bullets li::before {
-      margin-top: 6px;
-    }
-
-    .exp-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 12px; /* row-gap column-gap */
-    }
+    /* Experience handled in component CSS */
 
     /* Projects */
     .projects-grid { grid-template-columns: 1fr; gap: 2px; }
@@ -1161,16 +1124,12 @@
   <div class="exp-list">
 
     <div class="exp-item reveal">
-      <div class="exp-left">
-        <div>
-          <div class="exp-meta">
-          <span class="exp-company">Cognam Technologies</span>
-          <span class="exp-period">July 2023 – Present</span>
-          <span class="exp-badge">Full-time · Remote</span>
-        </div>
-        </div>
+      <div class="exp-timeline-left">
+        <div class="exp-period">July 2023 – Present</div>
+        <div class="exp-company">Cognam Technologies</div>
+        <div class="exp-badge">Full-time · Remote</div>
       </div>
-      <div class="exp-right">
+      <div class="exp-timeline-right">
         <div class="exp-role">Software Engineer</div>
         <ul class="exp-bullets">
           <li>Built a reusable <strong>heartbeat monitoring system</strong> using ActiveMQ (Pub-Sub) & MQTT to track health metrics across <strong>10+ internal products</strong>, enabling scalable external onboarding.</li>
@@ -1183,16 +1142,12 @@
     </div>
 
     <div class="exp-item reveal">
-      <div class="exp-left">
-        <div>
-          <div class="exp-meta">
-          <span class="exp-company">Cognam Technologies</span>
-          <span class="exp-period">Jan 2023 – June 202</span>
-          <span class="exp-badge">Intern · Remote</span>
-        </div>
-        </div>
+      <div class="exp-timeline-left">
+        <div class="exp-period">Jan 2023 – June 2023</div>
+        <div class="exp-company">Cognam Technologies</div>
+        <div class="exp-badge intern">Intern · Remote</div>
       </div>
-      <div class="exp-right">
+      <div class="exp-timeline-right">
         <div class="exp-role">Software Engineer Intern</div>
         <ul class="exp-bullets">
           <li>Designed an <strong>Employee Management System</strong> using Java 17, Spring Boot, Spring Security, and MySQL.</li>
