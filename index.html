@@ -917,11 +917,10 @@
 
       .exp-list {
         position: relative;
-        padding-left: 20px;
+        padding-left: 18px;
         gap: 20px;
       }
     
-      /* vertical line */
       .exp-list::before {
         content: '';
         position: absolute;
@@ -937,14 +936,13 @@
         position: relative;
         border-radius: 10px;
         overflow: visible;
-        padding-left: 10px;
+        padding-left: 0; /* FIX */
       }
     
-      /* timeline dot */
       .exp-item::before {
         content: '';
         position: absolute;
-        left: -4px;
+        left: -2px; /* FIX */
         top: 24px;
         width: 10px;
         height: 10px;
@@ -959,10 +957,12 @@
       }
     
       .exp-right {
-        padding: 16px 16px 18px;
+        padding: 16px;
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: 10px;
+        overflow-wrap: break-word; /* FIX */
+        word-break: break-word;   /* FIX */
       }
     
       .exp-role {
