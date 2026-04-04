@@ -912,55 +912,67 @@
     .exp-right { padding: 20px; }
     .exp-role { font-size: 1.1rem; } */
     /* EXPERIENCE MOBILE FIX */
-  @media (max-width: 768px) {
+  /* EXPERIENCE — MOBILE FIX (REPLACE existing mobile exp rules) */
+@media (max-width: 768px) {
+
       .exp-list {
         gap: 16px;
       }
-      
+    
       .exp-item {
+        display: flex;              /* 🔥 CHANGE: grid → flex */
+        flex-direction: column;     /* stack cleanly */
         border-radius: 8px;
       }
-      
+    
       .exp-left {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
         padding: 16px 20px;
+        display: flex;
+        flex-direction: column;
         gap: 6px;
       }
-      
+    
+      .exp-right {
+        padding: 18px 20px;
+      }
+    
       .exp-period {
         font-size: 0.7rem;
         margin-bottom: 4px;
       }
-      
+    
       .exp-company {
         font-size: 0.95rem;
       }
-      
+    
       .exp-badge {
         margin-top: 8px;
         align-self: flex-start;
       }
-      
-      .exp-right {
-        padding: 18px 20px;
-      }
-      
+    
       .exp-role {
         font-size: 1.05rem;
         margin-bottom: 12px;
       }
-      
+    
       .exp-bullets {
         gap: 8px;
       }
-      
+    
       .exp-bullets li {
         font-size: 0.88rem;
         line-height: 1.5;
       }
-      
+    
       .exp-item + .exp-item {
-        margin-top: 4px;
+        margin-top: 6px;
       }
+    }
+
+    .exp-bullets li::before {
+      margin-top: 6px;
     }
 
     /* Projects */
