@@ -277,65 +277,86 @@
     background: linear-gradient(90deg, var(--border), transparent);
   }
 
-  /* ─── EXPERIENCE ─── */
-  #experience { background: transparent; }
+  /* ─── EXPERIENCE — TIMELINE ─── */
+  .exp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    position: relative;
+  }
 
-  .exp-list { display: flex; flex-direction: column; gap: 2px; }
+  /* single continuous vertical line behind all items */
+  .exp-list::before {
+    content: '';
+    position: absolute;
+    left: 199px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+    z-index: 0;
+  }
 
   .exp-item {
     display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 0;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    transition: border-color 0.3s, background 0.3s;
+    grid-template-columns: 200px 1fr;
+    width: 100%;
+    min-width: 0;
     position: relative;
-    overflow: hidden;
   }
 
-  .exp-item::before {
+  .exp-timeline-left {
+    padding: 32px 32px 32px 0;
+    text-align: right;
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+  }
+
+  /* dot on the timeline */
+  .exp-timeline-left::after {
     content: '';
-    position: absolute; top: 0; left: 0;
-    width: 3px; height: 0;
-    background: var(--cyan);
-    transition: height 0.4s ease;
+    position: absolute;
+    right: -5px; top: 38px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    z-index: 2;
+    transition: border-color 0.3s, background 0.3s;
   }
 
-  .exp-item:hover { border-color: rgba(0,229,204,0.3); background: var(--bg3); }
-  .exp-item:hover::before { height: 100%; }
-
-  .exp-left {
-    padding: 32px 28px;
-    border-right: 1px solid var(--border);
-    display: flex; flex-direction: column; justify-content: space-between;
+  .exp-item:hover .exp-timeline-left::after {
+    border-color: var(--cyan);
+    background: var(--cyan);
   }
 
   .exp-period {
     font-family: var(--mono);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: var(--cyan);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-bottom: 8px;
+    line-height: 1.4;
+    margin-bottom: 6px;
   }
 
   .exp-company {
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    color: var(--text);
-    margin-bottom: 6px;
+    color: var(--text-muted);
   }
 
   .exp-badge {
     display: inline-block;
-    padding: 3px 10px;
+    padding: 2px 8px;
     background: var(--cyan-dim);
     color: var(--cyan);
     font-family: var(--mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-top: 12px;
+    margin-top: 8px;
   }
 
   .exp-badge.intern {
@@ -343,35 +364,80 @@
     color: var(--amber);
   }
 
-  .exp-right {
-    padding: 32px 36px;
+  .exp-timeline-right {
+    padding: 28px 0 40px 40px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    overflow: hidden;
   }
+
+  .exp-item:last-child .exp-timeline-right { border-bottom: none; }
 
   .exp-role {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    margin-bottom: 20px;
     letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    color: var(--text);
   }
 
-  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 
   .exp-bullets li {
-    display: flex; align-items: flex-start; gap: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
     color: var(--text-muted);
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     font-weight: 300;
+    line-height: 1.65;
+    word-break: break-word;
   }
 
   .exp-bullets li::before {
     content: '▸';
     color: var(--cyan);
-    font-size: 0.75rem;
-    margin-top: 4px;
+    font-size: 0.7rem;
+    margin-top: 5px;
     flex-shrink: 0;
   }
 
-  .exp-bullets li strong { color: var(--text); font-weight: 500; }
+  /* ─── MOBILE EXPERIENCE ─── */
+  @media (max-width: 768px) {
+    .exp-list::before { display: none; }
+
+    .exp-item {
+      grid-template-columns: 1fr;
+      padding-left: 20px;
+      border-left: 2px solid var(--border);
+      margin-bottom: 32px;
+      width: auto;
+    }
+
+    .exp-item:last-child { margin-bottom: 0; }
+
+    .exp-timeline-left {
+      text-align: left;
+      padding: 0 0 12px 0;
+    }
+
+    .exp-timeline-left::after {
+      left: -25px; right: auto; top: 4px;
+    }
+
+    .exp-timeline-right {
+      padding: 0;
+      border-bottom: none;
+      overflow: visible;
+    }
+  }
 
   /* ─── PROJECTS ─── */
   .projects-grid {
@@ -899,10 +965,7 @@
     .sec-line { display: none; }
 
     /* Experience */
-    .exp-item { grid-template-columns: 1fr; }
-    .exp-left { border-right: none; border-bottom: 1px solid var(--border); padding: 20px; }
-    .exp-right { padding: 20px; }
-    .exp-role { font-size: 1.1rem; }
+    /* Experience handled in component CSS */
 
     /* Projects */
     .projects-grid { grid-template-columns: 1fr; gap: 2px; }
@@ -989,7 +1052,7 @@
     Building high-performance distributed systems and scalable backend infrastructure. Specialized in Java, Spring Boot & Microservices with a focus on real-world impact.
   </p>
   <div class="hero-actions">
-    <a href="/cdn-cgi/l/email-protection#6405060c0d170c010f4a130b160f5453240309050d084a070b09" class="btn-primary">Get in Touch ↗</a>
+    <a href="#" data-m="abhishek.work07" data-d="gmail.com" class="btn-primary email-link">Get in Touch ↗</a>
     <a href="https://github.com/abhishekwork07" target="_blank" class="btn-ghost">GitHub ↗</a>
     <a href="https://www.linkedin.com/in/abhishek-gupta-2bbb1919b/" target="_blank" class="btn-ghost">LinkedIn ↗</a>
   </div>
@@ -1038,9 +1101,9 @@
     </div>
     <div class="about-card reveal">
       <div class="about-card-title">// contact.json</div>
-      <a href="/cdn-cgi/l/email-protection#31505359584259545a1f465e435a010671565c50585d1f525e5c" class="contact-item" style="text-decoration:none;">
+      <a href="#" data-m="abhishek.work07" data-d="gmail.com" class="contact-item email-link" style="text-decoration:none;">
         <div class="contact-icon">✉</div>
-        <div class="contact-label"><span class="__cf_email__" data-cfemail="3f5e5d57564c575a541148504d540f087f58525e5653115c5052">[email&#160;protected]</span> ↗</div>
+        <div class="contact-label">abhishek.work07&#64;gmail.com ↗</div>
       </a>
       <a href="tel:+919669954994" class="contact-item" style="text-decoration:none;">
         <div class="contact-icon">✆</div>
@@ -1063,7 +1126,7 @@
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience">
+<section id="experience" style="overflow:hidden;">
   <div class="sec-header reveal">
     <span class="sec-number">02 /</span>
     <h2 class="sec-title">Experience</h2>
@@ -1072,39 +1135,35 @@
   <div class="exp-list">
 
     <div class="exp-item reveal">
-      <div class="exp-left">
-        <div>
-          <div class="exp-period">July 2023 – Present</div>
-          <div class="exp-company">Cognam Technologies</div>
-          <div class="exp-badge">Full-time · Remote</div>
-        </div>
+      <div class="exp-timeline-left">
+        <div class="exp-period">July 2023 – Present</div>
+        <div class="exp-company">Cognam Technologies</div>
+        <div class="exp-badge">Full-time · Remote</div>
       </div>
-      <div class="exp-right">
+      <div class="exp-timeline-right">
         <div class="exp-role">Software Engineer</div>
         <ul class="exp-bullets">
-          <li>Built a reusable <strong>heartbeat monitoring system</strong> using ActiveMQ (Pub-Sub) & MQTT to track health metrics across <strong>10+ internal products</strong>, enabling scalable external onboarding.</li>
-          <li>Optimized search & storage in the logistics tracking system — <strong>70% faster search</strong>, <strong>60% storage reduction</strong> via index cleaning and query refactoring.</li>
-          <li>Constructed an <strong>audit feature</strong> for real-time device accuracy monitoring with PDF/Excel reports, accelerating stakeholder decisions by 40%.</li>
-          <li>Integrated <strong>OpenAI API</strong> for an AI-powered insights feature enabling natural language queries over logistics data.</li>
-          <li>Delivered scalable solutions across two parallel product lines in real-time tracking & logistics monitoring.</li>
+          <li>Built a reusable heartbeat monitoring system using ActiveMQ (Pub-Sub) & MQTT to track health metrics across 10+ internal products, enabling scalable external onboarding.</li>
+          <li>Improved search speed by 70% and reduced storage by 60% in the logistics tracking system via index cleaning and query refactoring.</li>
+          <li>Constructed an audit feature for real-time device accuracy monitoring; delivered PDF/Excel analytical reports that accelerated stakeholder decisions by 40%.</li>
+          <li>Integrated OpenAI API to build an AI-powered insights feature, enabling natural language queries over logistics data.</li>
+          <li>Worked across two products simultaneously, delivering scalable solutions in real-time tracking and logistics monitoring.</li>
         </ul>
       </div>
     </div>
 
     <div class="exp-item reveal">
-      <div class="exp-left">
-        <div>
-          <div class="exp-period">Jan 2023 – June 2023</div>
-          <div class="exp-company">Cognam Technologies</div>
-          <div class="exp-badge intern">Intern · Remote</div>
-        </div>
+      <div class="exp-timeline-left">
+        <div class="exp-period">Jan 2023 – June 2023</div>
+        <div class="exp-company">Cognam Technologies</div>
+        <div class="exp-badge intern">Intern · Remote</div>
       </div>
-      <div class="exp-right">
+      <div class="exp-timeline-right">
         <div class="exp-role">Software Engineer Intern</div>
         <ul class="exp-bullets">
-          <li>Designed an <strong>Employee Management System</strong> using Java 17, Spring Boot, Spring Security, and MySQL.</li>
-          <li>Resolved <strong>50+ backend issues</strong> — API bugs, exception handling, dashboard failures, and query optimization.</li>
-          <li>Added multilingual support via localization and adopted Agile workflow with Jira, sprints & daily scrums.</li>
+          <li>Designed an Employee Management System using Java 17, Spring Boot, Spring Security, and MySQL.</li>
+          <li>Fixed 50+ backend issues including API bugs, exception handling, dashboard restore failures, and query optimization.</li>
+          <li>Added multilingual support via localization and adopted Agile workflow with Jira, sprints, and daily scrums.</li>
         </ul>
       </div>
     </div>
@@ -1387,13 +1446,19 @@
 <footer>
   <div class="footer-logo">Abhishek Gupta · © 2026</div>
   <div class="footer-links">
-    <a href="/cdn-cgi/l/email-protection#f594979d9c869d909edb829a879ec5c2b59298949c99db969a98">Email</a>
+    <a href="#" data-m="abhishek.work07" data-d="gmail.com" class="email-link">Email</a>
     <a href="https://www.linkedin.com/in/abhishek-gupta-2bbb1919b/" target="_blank">LinkedIn</a>
     <a href="https://github.com/abhishekwork07" target="_blank">GitHub</a>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+  // Assemble email links at runtime (bypasses Netlify email obfuscation)
+  document.querySelectorAll('.email-link').forEach(el => {
+    const addr = el.dataset.m + '@' + el.dataset.d;
+    el.href = 'mailto:' + addr;
+  });
+
   // Hamburger menu
   const burger = document.getElementById('navBurger');
   const mobileMenu = document.getElementById('mobileMenu');
